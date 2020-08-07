@@ -4,15 +4,16 @@
 
 <style>
     .repo {
-        transition: transform .2s ease-out, box-shadow .2s ease-out;
+        transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     }
     .repo:hover {
         transform: translateY(-2px);
     }
 </style>
 
-
-<div class="flex items-center justify-between p-4 mt-4 bg-gray-200 rounded shadow-md hover:shadow-lg repo">
+<div
+    class="flex items-center justify-between p-4 mt-4 bg-gray-200 rounded
+    shadow-md hover:shadow-lg repo">
     <span class="text-xl">
         <a
             href={repo.html_url}
@@ -39,32 +40,11 @@
                     00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1
                     1 0 00.951-.69l1.519-4.674z" />
             </svg>
-            <div class='text-lg'>
-                {repo.stargazers_count}
-            </div>
+            <div class="text-lg">{repo.stargazers_count}</div>
         </div>
         <div class="flex flex-col items-center">
             <svg
                 class="text-gray-800 w-6 h-6"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943
-                    9.542 7-1.274 4.057-5.064 7-9.542 7-4.477
-                    0-8.268-2.943-9.542-7z" />
-            </svg>
-            <div class='text-lg'>
-                {repo.watchers_count}
-            </div>
-        </div>
-        <div class="flex flex-col items-center">
-            <svg
-                class='text-gray-800 w-6 h-6'
                 fill="none"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -78,9 +58,7 @@
                     105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368
                     2.684 3 3 0 00-5.368-2.684z" />
             </svg>
-            <div class='text-lg'>
-                {repo.forks}
-            </div>
+            <div class="text-lg">{repo.forks}</div>
         </div>
     </div>
 

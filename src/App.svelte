@@ -1,30 +1,40 @@
 <script>
-    import TailwindStyles from "./TailwindStyles.svelte";
-    import Repo from "./components/Repo.svelte";
+    import TailwindStyles from './TailwindStyles.svelte';
+    import Repo from './components/Repo.svelte';
 
-    let ghUsername = "";
+    let ghUsername = '';
     let repos = [];
 
     async function getReposByUser() {
         const res = await fetch(
             `https://api.github.com/users/${ghUsername}/repos`
         );
-        const data = await res.json();
-        repos = data;
+
+        if (res.ok) {
+            return await res.json();
+        }
+
+        throw new Error('User not found');
     }
 
-    window.onload = function() {
-        document.querySelector('#gh-username').addEventListener("keyup", (e) => {
-            if (e.keyCode === 13) {
-                e.preventDefault();
-                document.getElementById("getReposBtn").click();
-            }
-        });
+    function sortRepos(a, b) {
+        if (a.stargazers_count > b.stargazers_count) return -1;
+        if (a.stargazers_count < b.stargazers_count) return 1;
+        return 0;
     }
 </script>
 
+<nav>
+    <div class="text-3xl text-center py-4 text-purple-100 bg-purple-700">
+        Hub Viewer
+    </div>
+</nav>
+
 <div class="flex flex-col bg-gray-100 min-h-screen py-12">
-    <div class="flex justify-center space-x-4 py-4">
+    <form
+        class="flex justify-center space-x-4 py-4"
+        autocomplete="off"
+        on:submit|preventDefault>
         <input
             id="gh-username"
             placeholder="Github Username"
@@ -34,22 +44,24 @@
 
         <button
             id="getReposBtn"
-            on:click={getReposByUser}
+            on:click={() => (repos = getReposByUser())}
             class="px-4 py-2 text-gray-100 bg-purple-600 rounded
             hover:bg-purple-700">
             Get Repos
         </button>
-    </div>
+    </form>
 
     <div class="flex flex-col justify-center items-center">
         {#await repos}
             <p>loading repos...</p>
         {:then repos}
-            {#each repos as repo}
+            {#each repos.sort(sortRepos) as repo}
                 <div class="w-1/2">
                     <Repo {repo} />
                 </div>
             {/each}
+        {:catch error}
+            <p class="text-red-500">{error.message} :(</p>
         {/await}
     </div>
 </div>
