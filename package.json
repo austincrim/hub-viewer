@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "svelte": "^3.21.0",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^1.7.3"
   },
   "devDependencies": {
     "@snowpack/app-scripts-svelte": "^1.2.0",
